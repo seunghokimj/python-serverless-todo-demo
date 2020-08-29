@@ -8,7 +8,7 @@ import { TextField, RaisedButton } from 'material-ui'
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import Top from './Top'
 
-const baseURL = 'https://aixvm0ki39.execute-api.ap-northeast-2.amazonaws.com/dev';
+const baseURL = 'YOUR_URL';
 const App = styled.div``
 
 const Input = styled.div`
