@@ -123,7 +123,7 @@ Does this look okay? (default 'y') [y/n]: y
     "dev": {
         "app_function": "app.app",
         "aws_region": "ap-northeast-2",
-        "exclude": ["__pycache__", "static-web-front"],
+        "exclude": ["__pycache__", "images"],
         "memory_size": 128,
         "profile_name": "default",
         "project_name": "python-serverless-todo",
@@ -326,31 +326,32 @@ Amazon S3는 파일을 저장하는 저장소 역할을 합니다. 파일을 저
 새 터미널에서 작업합니다.
 
 ```sh
-# !! 여기서는 yarn으로 패키지를 설치. npm으로 설치하게 되면 Parcel bundler가 제대로 동작하지 않습니다.
-ec2-user:~/environment $ npm i -g yarn
-
 # !! 여기서 사용하는 패키지 중에 하나가 node 9.x 이하로 지원됩니다.
 ec2-user:~/environment $ nvm install 9
 ec2-user:~/environment $ nvm use 9
 
+# !! 여기서는 yarn으로 패키지를 설치. npm으로 설치하게 되면 Parcel bundler가 제대로 동작하지 않습니다.
+ec2-user:~/environment $ npm i -g yarn
+
 # web frontend 소스코드를 clone 합니다. 
-ec2-user:~/environment $ git clone https://github.com/seunghokimj/python-serverless-todo-demo
+ec2-user:~/environment $ git clone https://github.com/novemberde/serverless-todo-demo/
 
 # frontend 소스코드가 있는 디렉터리로 이동합니다.
-ec2-user:~/environment $ cd python-serverless-todo-demo/static-web-front/
+ec2-user:~/environment $ cd serverless-todo-demo/static-web-front/
 
 # npm으로 package 설치합니다.
-ec2-user:~/environment/python-serverless-todo-demo/static-web-front (master) $ yarn install
+ec2-user:~/environment/serverless-todo-demo/static-web-front (master) $ yarn install 
 ```
 
-**/home/ec2-user/environment/python-serverless-todo-demo/static-web-front/src/components/App.js** 파일을 수정합니다.
+**/home/ec2-user/environment/serverless-todo-demo/static-web-front/src/components/App.js** 파일을 수정합니다.
+
 baseURL 값을 [zappa deploy](https://github.com/seunghokimj/python-serverless-todo-demo#zappa-deploy) 에서 배포한 API gateway 주소로 변경합니다.
 
 
 ```sh
 # Static Website 빌드와 시작을 합니다.
 ec2-user:~/environment/serverless-todo-demo/static-web-front $ npm start
-> serverless-todo-demo-app@1.0.0 start /home/ec2-user/environment/python-serverless-todo-demo/static-web-front
+> serverless-todo-demo-app@1.0.0 start /home/ec2-user/environment/serverless-todo-demo/static-web-front
 > npx parcel src/index.html
 
 Server running at http://localhost:1234 
@@ -359,11 +360,11 @@ Server running at http://localhost:1234
 # control + c 버튼을 눌러 종료합니다.
 
 # 빌드된 frontend 디렉터리로 이동합니다.
-ec2-user:~/environment/python-serverless-todo-demo/static-web-front/dist (master) $ cd /home/ec2-user/environment/python-serverless-todo-demo/static-web-front/dist
+ec2-user:~/environment/serverless-todo-demo/static-web-front (master) $ cd dist/
 
 # 빌드된 frontend 파일들을 S3에 복사합니다.
 # USERNAME 은 수정합니다. 
-ec2-user:~/environment/python-serverless-todo-demo/static-web-front/dist (master) $ aws s3 cp ./ s3://USERNAME-serverless-static-web/ --recursive --acl public-read  
+ec2-user:~/environment/serverless-todo-demo/static-web-front/dist (master) $ aws s3 cp ./ s3://USERNAME-serverless-static-web/ --recursive --acl public-read  
 ```
 
 ### CORS 문제 해결
