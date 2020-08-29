@@ -1,0 +1,4 @@
+Flask==1.1.2
+Flask-RESTful==0.3.8
+pynamodb==4.3.3
+zappa==0.51.0

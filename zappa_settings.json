@@ -1,0 +1,12 @@
+{
+    "dev": {
+        "app_function": "app.app",
+        "aws_region": "ap-northeast-2",
+        "exclude": ["__pycache__", "static-web-front"],
+        "memory_size": 128,
+        "profile_name": "default",
+        "project_name": "python-serverless-todo",
+        "runtime": "python3.6",
+        "s3_bucket": "seunghokim-serverless-demo"
+    }
+}
