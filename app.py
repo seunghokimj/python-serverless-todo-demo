@@ -6,10 +6,10 @@ from http import HTTPStatus
 
 from models import Todo
 
+DEBUG = False
+
 app = Flask(__name__)
 api = Api(app)
-
-DEBUG = False
 
 
 @app.route('/')
@@ -23,6 +23,8 @@ parser.add_argument('title')
 parser.add_argument('createdAt')
 
 
+# Todo
+# shows a single todo item and lets you delete a todo item
 class TodoResource(Resource):
     def get(self, created_at):
         try:
@@ -53,6 +55,8 @@ class TodoResource(Resource):
             return 'Not found', HTTPStatus.NOT_FOUND
 
 
+# TodoList
+# shows a list of all todos, and lets you POST to add new tasks
 class TodoListResource(Resource):
     def get(self):
         args = parser.parse_args()
@@ -71,6 +75,7 @@ class TodoListResource(Resource):
         return todo.attribute_values, HTTPStatus.CREATED
 
 
+# Actually setup the Api resource routing here
 api.add_resource(TodoResource, '/todo/<string:created_at>')
 api.add_resource(TodoListResource, '/todo/')
 
