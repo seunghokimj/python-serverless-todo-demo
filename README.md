@@ -232,7 +232,21 @@ class TodoResource(Resource):
 ```
 
 * Api resource routing
+
+```python
+api.add_resource(TodoResource, '/todo/<string:created_at>')
+api.add_resource(TodoListResource, '/todo/')
+```
+
 * 한글 깨짐(encoding) 문제 해결
+
+```python
+@api.representation('application/json')
+def json_out(data, code, headers=None):
+    resp = make_response(json.dumps(data, ensure_ascii=False), code)
+    resp.headers.extend(headers or {})
+    return resp
+```
 
 #### CRUD test
 * Todo 데이터 생성
@@ -369,6 +383,14 @@ ec2-user:~/environment/serverless-todo-demo/static-web-front/dist (master) $ aws
 
 ### CORS 문제 해결
 flask 의 `@app.after_request` 을 사용해서 CORS error 문제를 해결합니다.
+```python
+@app.after_request
+def after_request(response):
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
+    response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE')
+    return response
+```
 
 
 ## 리소스 삭제하기
